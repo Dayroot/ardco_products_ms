@@ -1,10 +1,10 @@
 const store = require('./store');
 
-function addProduct(data) {
+function createProduct(data) {
     if(!data.name){
        return Promise.reject('Invalid data');
     }
-    return store.add(data);
+    return store.create(data);
 }
 
 function getProduct(filterProduct){
@@ -26,7 +26,7 @@ function deleteProduct(id){
 }
 
 module.exports = {
-    addProduct,
+    createProduct,
     getProduct,
     updateProduct,
     deleteProduct,

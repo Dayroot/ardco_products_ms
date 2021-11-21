@@ -4,7 +4,7 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.post('/', function(req, res){
-    controller.addCategory(req.body)
+    controller.createCategory(req.body)
         .then( data => {
             response.success(req, res,{"successful create": data}, 201);
         })

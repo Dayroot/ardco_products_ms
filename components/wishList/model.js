@@ -11,5 +11,5 @@ const mySchema = new Schema({
     }],
 });
 
-const model = mongoose.model('ShoppingCart', mySchema);
+const model = mongoose.model('WishList', mySchema);
 module.exports = model;

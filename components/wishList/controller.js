@@ -1,24 +1,24 @@
 const store = require('./store');
 
-function createShoppingCart(data) {
+function createWishList(data) {
     if(!data.name){
        return Promise.reject('Invalid data');
     }
     return store.create(data);
 }
 
-function getShoppingCart(filterShoppingCart){
-    return store.get(filterShoppingCart)
+function getWishList(filterWishList){
+    return store.get(filterWishList)
 }
 
-function updateShoppingCart(data){
+function updateWishList(data){
     if(!data._id){
         return Promise.reject('Invalid data');
     }
     return store.update(data)
 }
 
-function deleteShoppingCart(id){
+function deleteWishList(id){
     if(!id){
         return Promise.reject('Invalid data');
     }
@@ -26,8 +26,8 @@ function deleteShoppingCart(id){
 }
 
 module.exports = {
-    createShoppingCart,
-    getShoppingCart,
-    updateShoppingCart,
-    deleteShoppingCart,
+    createWishList,
+    getWishList,
+    updateWishList,
+    deleteWishList,
 }

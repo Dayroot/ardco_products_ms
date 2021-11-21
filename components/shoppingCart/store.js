@@ -1,18 +1,18 @@
 const Model = require('./model');
 
-async function addProduct(product){
-    const newProduct = new Model(product);
-    return await newProduct.save();
+async function createShoppingCart(shoppingCart){
+    const newShoppingCart = new Model(shoppingCart);
+    return await newShoppingCart.save();
 }
 
-async function getProduct(filterProduct){
+async function getShoppingCart(filterShoppingCart){
     return new Promise( (resolve, reject) => {
         let filter = {};
-        if(filterProduct){
-            filter = { _id: filterProduct };
+        if(filterShoppingCart){
+            filter = { _id: filterShoppingCart };
         }
         Model.find( filter)
-            .populate('category')
+            .populate('products')
             .exec( (error, populated) => {
                 if(error){
                     return reject(error);
@@ -22,7 +22,7 @@ async function getProduct(filterProduct){
     })
 }
 
-async function updateProduct(data){
+async function updateShoppingCart(data){
     const result = await Model.findOneAndUpdate(
         { _id: data._id },
         data,
@@ -35,17 +35,17 @@ async function updateProduct(data){
     return result
 }
 
-async function deleteProduct(id){
-    const productDeleted = await Model.deleteOne( { _id: id } );
-    if(!productDeleted){
+async function deleteShoppingCart(id){
+    const shoppingCartDeleted = await Model.deleteOne( { _id: id } );
+    if(!shoppingCartDeleted){
         return Promise.reject('Id not valid');
     }
-    return productDeleted
+    return shoppingCartDeleted
 }
 
 module.exports = {
-    add: addProduct,
-    get: getProduct,
-    update: updateProduct,
-    delete: deleteProduct,
+    create: createShoppingCart,
+    get: getShoppingCart,
+    update: updateShoppingCart,
+    delete: deleteShoppingCart,
 }

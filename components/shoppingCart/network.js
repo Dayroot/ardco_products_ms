@@ -4,7 +4,7 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.post('/', function(req, res){
-    controller.addProduct(req.body)
+    controller.createProduct(req.body)
         .then( data => {
             response.success(req, res,{"successful create": data}, 201);
         })

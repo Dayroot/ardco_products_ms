@@ -1,6 +1,6 @@
 const Model = require('./model');
 
-async function addCategory(category){
+async function createCategory(category){
     const newCategory = new Model(category);
     return await newCategory.save();
 }
@@ -35,7 +35,7 @@ async function deleteCategory(id){
 }
 
 module.exports = {
-    add: addCategory,
+    create: createCategory,
     get: getCategory,
     update: updateCategory,
     delete: deleteCategory,

@@ -1,10 +1,10 @@
 const store = require('./store');
 
-function addCategory(data) {
+function createCategory(data) {
     if(!data.name){
        return Promise.reject('Invalid data');
     }
-    return store.add(data);
+    return store.create(data);
 }
 
 function getCategory(filterCategory){
@@ -26,7 +26,7 @@ function deleteCategory(id){
 }
 
 module.exports = {
-    addCategory,
+    createCategory,
     getCategory,
     updateCategory,
     deleteCategory,

@@ -1,18 +1,18 @@
 const Model = require('./model');
 
-async function createProduct(product){
-    const newProduct = new Model(product);
-    return await newProduct.save();
+async function createWishList(wishList){
+    const newWishList = new Model(wishList);
+    return await newWishList.save();
 }
 
-async function getProduct(filterProduct){
+async function getWishList(filterWishList){
     return new Promise( (resolve, reject) => {
         let filter = {};
-        if(filterProduct){
-            filter = { _id: filterProduct };
+        if(filterWishList){
+            filter = { _id: filterWishList };
         }
         Model.find( filter)
-            .populate('category')
+            .populate('products')
             .exec( (error, populated) => {
                 if(error){
                     return reject(error);
@@ -22,7 +22,7 @@ async function getProduct(filterProduct){
     })
 }
 
-async function updateProduct(data){
+async function updateWishList(data){
     const result = await Model.findOneAndUpdate(
         { _id: data._id },
         data,
@@ -35,17 +35,17 @@ async function updateProduct(data){
     return result
 }
 
-async function deleteProduct(id){
-    const productDeleted = await Model.deleteOne( { _id: id } );
-    if(!productDeleted){
+async function deleteWishList(id){
+    const wishListDeleted = await Model.deleteOne( { _id: id } );
+    if(!wishListDeleted){
         return Promise.reject('Id not valid');
     }
-    return productDeleted
+    return wishListDeleted
 }
 
 module.exports = {
-    create: createProduct,
-    get: getProduct,
-    update: updateProduct,
-    delete: deleteProduct,
+    create: createWishList,
+    get: getWishList,
+    update: updateWishList,
+    delete: deleteWishList,
 }
