@@ -7,7 +7,14 @@ const mySchema = new Schema({
         required: true,
     },
     products: [{
-        type: Schema.ObjectId,
+        product: {
+            type: Schema.ObjectId,
+            ref: 'Product'
+        },
+        quantity:{
+            type: Number,
+            default:1
+        }
     }],
 });
 

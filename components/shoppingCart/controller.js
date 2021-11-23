@@ -11,11 +11,11 @@ function getShoppingCart(filterShoppingCart){
     return store.get(filterShoppingCart)
 }
 
-function updateShoppingCart(data){
+function updateShoppingCart(data, type){
     if(!data._id){
         return Promise.reject('Invalid data');
     }
-    return store.update(data)
+    return store.update(data, type)
 }
 
 function deleteShoppingCart(id){

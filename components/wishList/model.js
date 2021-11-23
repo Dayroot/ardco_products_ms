@@ -8,6 +8,7 @@ const mySchema = new Schema({
     },
     products: [{
         type: Schema.ObjectId,
+        ref: 'Product'
     }],
 });
 

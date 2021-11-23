@@ -4,7 +4,7 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.post('/', function(req, res){
-    controller.createProduct(req.body)
+    controller.createShoppingCart(req.body)
         .then( data => {
             response.success(req, res,{"successful create": data}, 201);
         })
@@ -14,7 +14,7 @@ router.post('/', function(req, res){
 });
 
 router.get('/:id', function(req, res){
-    controller.getProduct(req.params.id)
+    controller.getShoppingCart(req.params.id)
         .then( data => {
             response.success(req, res, data, 200);
         })
@@ -24,7 +24,7 @@ router.get('/:id', function(req, res){
 });
 
 router.get('/', function(req, res){
-    controller.getProduct()
+    controller.getShoppingCart()
         .then( data => {
             response.success(req, res, data, 200);
         })
@@ -34,7 +34,7 @@ router.get('/', function(req, res){
 });
 
 router.patch('/', function(req, res){
-    controller.updateProduct(req.body)
+    controller.updateShoppingCart(req.body, req.query.type)
     .then( data => {
         response.success(req, res, data, 200);
     })
@@ -44,7 +44,7 @@ router.patch('/', function(req, res){
 });
 
 router.delete('/:id', function(req, res){
-    controller.deleteProduct(req.params.id)
+    controller.deleteShoppingCart(req.params.id)
         .then( data => {
             response.success(req, res, data, 200);
         })

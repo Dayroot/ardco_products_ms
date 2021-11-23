@@ -22,7 +22,7 @@ async function getShoppingCart(filterShoppingCart){
     })
 }
 
-async function updateShoppingCart(data){
+async function updateShoppingCart(data, type){
     const result = await Model.findOneAndUpdate(
         { _id: data._id },
         data,

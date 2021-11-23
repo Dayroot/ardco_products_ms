@@ -1,9 +1,6 @@
 const store = require('./store');
 
 function createWishList(data) {
-    if(!data.name){
-       return Promise.reject('Invalid data');
-    }
     return store.create(data);
 }
 
@@ -11,11 +8,11 @@ function getWishList(filterWishList){
     return store.get(filterWishList)
 }
 
-function updateWishList(data){
-    if(!data._id){
+function updateWishList(data, query){
+    if(!query){
         return Promise.reject('Invalid data');
     }
-    return store.update(data)
+    return store.update(data, query)
 }
 
 function deleteWishList(id){

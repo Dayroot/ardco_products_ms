@@ -4,7 +4,7 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.post('/', function(req, res){
-    controller.createProduct(req.body)
+    controller.createWishList(req.body)
         .then( data => {
             response.success(req, res,{"successful create": data}, 201);
         })
@@ -13,18 +13,9 @@ router.post('/', function(req, res){
         });
 });
 
-router.get('/:id', function(req, res){
-    controller.getProduct(req.params.id)
-        .then( data => {
-            response.success(req, res, data, 200);
-        })
-        .catch( e => {
-            response.error(req, res, "Unexpected error", 500, e);
-        });
-});
-
 router.get('/', function(req, res){
-    controller.getProduct()
+    const filterWishList =  Object.keys(req.query).length == 0 ? null : req.query;
+    controller.getWishList(filterWishList)
         .then( data => {
             response.success(req, res, data, 200);
         })
@@ -34,7 +25,7 @@ router.get('/', function(req, res){
 });
 
 router.patch('/', function(req, res){
-    controller.updateProduct(req.body)
+    controller.updateWishList(req.body, req.query)
     .then( data => {
         response.success(req, res, data, 200);
     })
@@ -44,7 +35,7 @@ router.patch('/', function(req, res){
 });
 
 router.delete('/:id', function(req, res){
-    controller.deleteProduct(req.params.id)
+    controller.deleteWishList(req.params.id)
         .then( data => {
             response.success(req, res, data, 200);
         })
