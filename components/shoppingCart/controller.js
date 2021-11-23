@@ -1,7 +1,7 @@
 const store = require('./store');
 
 function createShoppingCart(data) {
-    if(!data.name){
+    if(!data.user){
        return Promise.reject('Invalid data');
     }
     return store.create(data);

@@ -13,8 +13,9 @@ router.post('/', function(req, res){
         });
 });
 
-router.get('/:id', function(req, res){
-    controller.getShoppingCart(req.params.id)
+router.get('/', function(req, res){
+    const filterShoppingCart =  Object.keys(req.query).length == 0 ? null : req.query;
+    controller.getShoppingCart(filterShoppingCart)
         .then( data => {
             response.success(req, res, data, 200);
         })
@@ -23,15 +24,6 @@ router.get('/:id', function(req, res){
         });
 });
 
-router.get('/', function(req, res){
-    controller.getShoppingCart()
-        .then( data => {
-            response.success(req, res, data, 200);
-        })
-        .catch( e => {
-            response.error(req, res, "Unexpected error", 500, e);
-        });
-});
 
 router.patch('/', function(req, res){
     controller.updateShoppingCart(req.body, req.query.type)

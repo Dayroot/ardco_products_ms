@@ -23,7 +23,7 @@ const mySchema = new Schema({
         default: 'undefined',
         ref: 'Category'
     },
-    imgUrl: [{
+    imgUrls: [{
         type: String,
     }],
 });

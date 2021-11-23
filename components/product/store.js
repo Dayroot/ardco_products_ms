@@ -9,7 +9,7 @@ async function getProduct(filterProduct){
     return new Promise( (resolve, reject) => {
         let filter = {};
         if(filterProduct){
-            filter = { _id: filterProduct };
+            filter = { _id: filterProduct.id };
         }
         Model.find( filter)
             .populate('category')
@@ -23,6 +23,7 @@ async function getProduct(filterProduct){
 }
 
 async function updateProduct(data){
+    
     const result = await Model.findOneAndUpdate(
         { _id: data._id },
         data,

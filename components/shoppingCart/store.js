@@ -9,7 +9,7 @@ async function getShoppingCart(filterShoppingCart){
     return new Promise( (resolve, reject) => {
         let filter = {};
         if(filterShoppingCart){
-            filter = { _id: filterShoppingCart };
+            filter = { _id: filterShoppingCart.id };
         }
         Model.find( filter)
             .populate('products')
