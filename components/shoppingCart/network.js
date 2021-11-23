@@ -26,7 +26,9 @@ router.get('/', function(req, res){
 
 
 router.patch('/', function(req, res){
-    controller.updateShoppingCart(req.body, req.query.type)
+    const query =  Object.keys(req.query).length == 0 ? null : req.query;
+    const data =  Object.keys(req.body).length == 0 ? null : req.body;
+    controller.updateShoppingCart(data, query)
     .then( data => {
         response.success(req, res, data, 200);
     })

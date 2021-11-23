@@ -9,10 +9,13 @@ async function getShoppingCart(filterShoppingCart){
     return new Promise( (resolve, reject) => {
         let filter = {};
         if(filterShoppingCart){
-            filter = { _id: filterShoppingCart.id };
+            filter = { userId: filterShoppingCart.userId };
         }
         Model.find( filter)
-            .populate('products')
+            .populate({ 
+                path:'products',
+                populate: { path: 'product' }
+            })
             .exec( (error, populated) => {
                 if(error){
                     return reject(error);
@@ -22,17 +25,42 @@ async function getShoppingCart(filterShoppingCart){
     })
 }
 
-async function updateShoppingCart(data, type){
-    const result = await Model.findOneAndUpdate(
-        { _id: data._id },
-        data,
-        { new: true }
-    );
+async function updateShoppingCart(data, query){
+    let index = null;
+    let shoppingCart = (await Model.findOne({ userId: query.userId }));
 
-    if(!result){
+    if(!shoppingCart){
         return Promise.reject('Id not valid');
     }
-    return result
+
+    shoppingCart.products.forEach( (productObj, i) => {
+            if( productObj.product == data.product){
+                index = i;
+            }
+        });
+
+    if(query.type == 'add'){
+        if(index == null){
+            shoppingCart.products.push({ product:data.product, quantity:1});
+        }else{
+            shoppingCart.products[index].quantity += 1;
+        }
+    }
+    
+    else if(query.type == 'delete' && index !=null){
+        shoppingCart.products.splice(index,1);
+    }
+    
+    else if(query.type == 'decrease' && index !=null){
+        if(shoppingCart.products[index].quantity > 1)
+            shoppingCart.products[index].quantity -= 1;
+    }
+
+    else{
+        return Promise.reject('Invalid operation type');
+    }
+
+    return await shoppingCart.save()
 }
 
 async function deleteShoppingCart(id){
