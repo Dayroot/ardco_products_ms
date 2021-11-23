@@ -1,7 +1,7 @@
 const store = require('./store');
 
 function createShoppingCart(data) {
-    if(!data.user){
+    if(!data.userId){
        return Promise.reject('Invalid data');
     }
     return store.create(data);
@@ -11,11 +11,11 @@ function getShoppingCart(filterShoppingCart){
     return store.get(filterShoppingCart)
 }
 
-function updateShoppingCart(data, type){
-    if(!data._id){
+function updateShoppingCart(data, query){
+    if(!query || !data){
         return Promise.reject('Invalid data');
     }
-    return store.update(data, type)
+    return store.update(data, query)
 }
 
 function deleteShoppingCart(id){
