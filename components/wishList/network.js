@@ -25,7 +25,9 @@ router.get('/', function(req, res){
 });
 
 router.patch('/', function(req, res){
-    controller.updateWishList(req.body, req.query)
+    const query =  Object.keys(req.query).length == 0 ? null : req.query;
+    const data =  Object.keys(req.body).length == 0 ? null : req.body;
+    controller.updateWishList(data, query)
     .then( data => {
         response.success(req, res, data, 200);
     })

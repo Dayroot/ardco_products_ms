@@ -9,7 +9,7 @@ function getWishList(filterWishList){
 }
 
 function updateWishList(data, query){
-    if(!query){
+    if(!query || !data){
         return Promise.reject('Invalid data');
     }
     return store.update(data, query)
