@@ -6,11 +6,7 @@ async function createCategory(category){
 }
 
 async function getCategory(filterCategory){
-    let filter = {};
-    if(filterCategory){
-        filter = { _id: filterCategory };
-    }
-    return await Model.find(filter)
+    return await Model.find(filterCategory)
 }
 
 async function updateCategory(data){
