@@ -16,6 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 
 router(app);
-server.listen(3000, function(){
-    console.log('The app is listening on '+ config.HOST +':'+ config.PORT);
+server.listen(config.PORT, function(){
+    console.log('Server ready at '+ config.URL);
 });

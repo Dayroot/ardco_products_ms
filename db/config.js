@@ -1,8 +1,7 @@
 
 const config = {
-    DEV: process.env.NODE_ENV !== 'production',
-    PORT: process.env.PORT || 3000,
-    HOST: process.env.HOST || 'http://localhost',
+    PORT: process.env.PORT || 4000,
+    URL: process.env.URL,
     CORS: process.env.CORS,
     PUBLIC_ROUTE: process.env.PUBLIC_ROUTE || '/app',
     FILES_ROUTE: process.env.FILES_ROUTE || '/files',
