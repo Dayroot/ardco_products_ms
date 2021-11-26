@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', function(req, res){
     controller.createShoppingCart(req.body)
         .then( data => {
-            response.success(req, res,{"successful create": data}, 201);
+            response.success(req, res, data, 201);
         })
         .catch(e => {
             response.error(req, res, "The data is not valid", 400, e);
