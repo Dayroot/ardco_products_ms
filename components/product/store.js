@@ -2,7 +2,7 @@ const Model = require('./model');
 
 async function createProduct(product){
     const newProduct = new Model(product);
-    return await newProduct.save();
+    return await newProduct.save();       
 }
 
 async function getProduct(filterProduct){
