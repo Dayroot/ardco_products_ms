@@ -7,11 +7,8 @@ async function createWishList(wishList){
 
 async function getWishList(filterWishList){
     return new Promise( (resolve, reject) => {
-        let filter = {};
-        if(filterWishList){
-            filter = { userId: filterWishList.userId };
-        }
-        Model.find( filter )
+    
+        Model.find( filterWishList )
             .populate('products')
             .exec( (error, populated) => {
                 if(error){

@@ -7,11 +7,8 @@ async function createShoppingCart(shoppingCart){
 
 async function getShoppingCart(filterShoppingCart){
     return new Promise( (resolve, reject) => {
-        let filter = {};
-        if(filterShoppingCart){
-            filter = { userId: filterShoppingCart.userId };
-        }
-        Model.find( filter)
+
+        Model.find( filterShoppingCart )
             .populate({ 
                 path:'products',
                 populate: { path: 'product' }

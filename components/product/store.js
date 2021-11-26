@@ -7,11 +7,8 @@ async function createProduct(product){
 
 async function getProduct(filterProduct){
     return new Promise( (resolve, reject) => {
-        let filter = {};
-        if(filterProduct){
-            filter = { _id: filterProduct.id };
-        }
-        Model.find( filter)
+              
+        Model.find( filterProduct )
             .populate('category')
             .exec( (error, populated) => {
                 if(error){
