@@ -16,9 +16,6 @@ function updateWishList(data, query){
 }
 
 function deleteWishList(id){
-    if(!id){
-        return Promise.reject('Invalid data');
-    }
     return store.delete(id);
 }
 

@@ -18,5 +18,9 @@ const shoppingCartSchema = new Schema({
         }],
 });
 
+shoppingCartSchema.post('save', function(doc, next){
+    doc.populate({ path:'products', populate: { path: 'product', populate: { path: 'category' } } }).then( () => next() );
+});
+
 const model = mongoose.model('ShoppingCart', shoppingCartSchema);
 module.exports = model;

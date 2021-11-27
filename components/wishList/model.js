@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const mySchema = new Schema({
+const wishListSchema = new Schema({
     userId: {
         type: String,
         required: true,
@@ -12,5 +12,9 @@ const mySchema = new Schema({
     }],
 });
 
-const model = mongoose.model('WishList', mySchema);
+wishListSchema.post('save', function(doc, next){
+    doc.populate({ path:'products', populate: { path: 'category' } }).then( () => next() );
+});
+
+const model = mongoose.model('WishList', wishListSchema);
 module.exports = model;

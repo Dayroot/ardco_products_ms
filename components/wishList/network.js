@@ -36,8 +36,8 @@ router.patch('/', function(req, res){
     });
 });
 
-router.delete('/:id', function(req, res){
-    controller.deleteWishList(req.params.id)
+router.delete('/:userId', function(req, res){
+    controller.deleteWishList(req.params)
         .then( data => {
             response.success(req, res, data, 200);
         })

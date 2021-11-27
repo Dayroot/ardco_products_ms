@@ -11,7 +11,7 @@ async function getShoppingCart(filterShoppingCart){
         Model.find( filterShoppingCart )
             .populate({ 
                 path:'products',
-                populate: { path: 'product' }
+                populate: { path: 'product' , populate: { path: 'category' }}
             })
             .exec( (error, populated) => {
                 if(error){
@@ -26,9 +26,8 @@ async function updateShoppingCart(data, query){
     let index = null;
     let shoppingCart = (await Model.findOne({ userId: query.userId }));
 
-    if(!shoppingCart){
+    if(!shoppingCart)
         return Promise.reject('Id not valid');
-    }
 
     shoppingCart.products.forEach( (productObj, i) => {
             if( productObj.product == data.product){
@@ -36,36 +35,27 @@ async function updateShoppingCart(data, query){
             }
         });
 
-    if(query.type == 'add'){
-        if(index == null){
-            shoppingCart.products.push({ product:data.product, quantity:1});
-        }else{
-            shoppingCart.products[index].quantity += 1;
-        }
+    if(query.type == 'updateProduct'){
+
+        if( index == null )
+            shoppingCart.products.push(data);
+
+        else if ( data.quantity > 0 )
+            shoppingCart.products[index].quantity = data.quantity    
     }
     
-    else if(query.type == 'delete' && index !=null){
+    else if(query.type == 'deleteProduct' && index !=null)
         shoppingCart.products.splice(index,1);
-    }
-    
-    else if(query.type == 'decrease' && index !=null){
-        if(shoppingCart.products[index].quantity > 1)
-            shoppingCart.products[index].quantity -= 1;
-    }
-
-    else{
+      
+    else
         return Promise.reject('Invalid operation type');
-    }
-
+    
     return await shoppingCart.save()
 }
 
-async function deleteShoppingCart(id){
-    const shoppingCartDeleted = await Model.deleteOne( { _id: id } );
-    if(!shoppingCartDeleted){
-        return Promise.reject('Id not valid');
-    }
-    return shoppingCartDeleted
+async function deleteShoppingCart(userId){
+    return await Model.deleteOne( userId );
+
 }
 
 module.exports = {

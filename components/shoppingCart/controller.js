@@ -18,11 +18,8 @@ function updateShoppingCart(data, query){
     return store.update(data, query)
 }
 
-function deleteShoppingCart(id){
-    if(!id){
-        return Promise.reject('Invalid data');
-    }
-    return store.delete(id);
+function deleteShoppingCart(userId){
+    return store.delete(userId);
 }
 
 module.exports = {

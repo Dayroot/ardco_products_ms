@@ -9,7 +9,12 @@ async function getWishList(filterWishList){
     return new Promise( (resolve, reject) => {
     
         Model.find( filterWishList )
-            .populate('products')
+            .populate({ 
+                path:'products', 
+                populate: { 
+                    path: 'category' 
+                } 
+            })
             .exec( (error, populated) => {
                 if(error){
                     return reject(error);
@@ -20,29 +25,27 @@ async function getWishList(filterWishList){
 }
 
 async function updateWishList(data, query){
+    
     let wishList = await Model.findOne({ userId: query.userId });
-    if(!wishList){
+    if(!wishList)
         return Promise.reject('Id not valid');
-    }
+    
     const index = wishList.products.indexOf(data.product);
-    if(query.type == 'add'){
+
+    if(query.type == 'updateProduct'){
         if(index==-1) 
             wishList.products.push(data.product);
     }
-    else if(query.type == 'delete' && index!=-1){
+    else if(query.type == 'deleteProduct' && index!=-1)
         wishList.products.splice(index,1)
-    }else{
+    else
         return Promise.reject('Invalid operation type');
-    }
+    
     return await wishList.save()
 }
 
-async function deleteWishList(id){
-    const wishListDeleted = await Model.deleteOne( { _id: id } );
-    if(!wishListDeleted){
-        return Promise.reject('Id not valid');
-    }
-    return wishListDeleted
+async function deleteWishList(userId){
+    return await Model.deleteOne( userId );
 }
 
 module.exports = {

@@ -24,7 +24,6 @@ router.get('/', function(req, res){
         });
 });
 
-
 router.patch('/', function(req, res){
     const query =  Object.keys(req.query).length == 0 ? null : req.query;
     const data =  Object.keys(req.body).length == 0 ? null : req.body;
@@ -37,8 +36,8 @@ router.patch('/', function(req, res){
     });
 });
 
-router.delete('/:id', function(req, res){
-    controller.deleteShoppingCart(req.params.id)
+router.delete('/:userId', function(req, res){
+    controller.deleteShoppingCart(req.params)
         .then( data => {
             response.success(req, res, data, 200);
         })
