@@ -26,9 +26,25 @@ const productSchema = new Schema({
     imgUrls: [{
         type: String,
     }],
+    average_reviews: {
+        type: Number,
+        default: 0
+    },
+    total_reviews: {
+        type: Number,
+        default: 0
+    },
+    userId: {
+        type: String,
+        required: true,
+    },
 });
 
 productSchema.post('save', function(doc, next){
+    doc.populate('category').then( () => next() );
+});
+
+productSchema.post('findOneAndUpdate', function(doc, next){
     doc.populate('category').then( () => next() );
 });
 
