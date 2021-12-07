@@ -1,6 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const featuresSchema = new Schema({
+    color: {
+        type: String,
+        default: null,
+    },
+    material: {
+        type: String,
+        default: null,
+    },
+    department: {
+        type: String,
+        default: null,
+    },
+});
+
 const productSchema = new Schema({
     name: {
         type: String,
@@ -38,6 +53,10 @@ const productSchema = new Schema({
         type: String,
         required: true,
     },
+    features:{
+        type: featuresSchema,
+        default: null,
+    }
 });
 
 productSchema.post('save', function(doc, next){
