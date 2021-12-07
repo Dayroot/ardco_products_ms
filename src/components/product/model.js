@@ -63,6 +63,11 @@ productSchema.post('save', function(doc, next){
     doc.populate('category').then( () => next() );
 });
 
+productSchema.pre('find', function(){
+    this.populate('category');
+});
+
+
 productSchema.post('findOneAndUpdate', function(doc, next){
     doc.populate('category').then( () => next() );
 });

@@ -5,28 +5,33 @@ async function createProduct(product){
     return await newProduct.save();       
 }
 
-async function getProduct(filterProduct){
-    return new Promise( (resolve, reject) => {
-              
-        Model.find( filterProduct )
-            .populate('category')
-            .exec( (error, populated) => {
-                if(error){
-                    return reject(error);
-                }
-                resolve(populated)
-            });
-    })
+async function getProduct(filterProduct){     
+    return await Model.find( filterProduct );           
 }
 
-async function updateProduct(data){
-    
-    const result = await Model.findOneAndUpdate(
-        { _id: data._id },
-        data,
-        { new: true }
-    );
+async function updateProduct(data, type){
+    let result;
 
+    if(type == "normal-update"){
+        result = await Model.findOneAndUpdate(
+            { _id: data._id },
+            data,
+            { new: true }
+        );
+    }
+    else if( type == "update-review"){
+
+        let product = (await Model.findOne({ _id: data._id }));
+        if(!product)
+            return Promise.reject('Id not valid');
+        else
+            var numb = ((product.average_reviews*product.total_reviews) + data.review)/(product.total_reviews + 1);
+            product.average_reviews = Math.round((numb + Number.EPSILON) * 10) / 10;
+            product.total_reviews += 1;
+            product.category = String(product.category);
+
+        result = await product.save();
+    }
     if(!result){
         return Promise.reject('Id not valid');
     }

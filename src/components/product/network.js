@@ -26,7 +26,8 @@ router.get('/', function(req, res){
 
 
 router.patch('/', function(req, res){
-    controller.updateProduct(req.body)
+    const type =  Object.keys(req.query).length == 0 ? null : req.query.type;
+    controller.updateProduct(req.body, type)
     .then( data => {
         response.success(req, res, data, 200);
     })
