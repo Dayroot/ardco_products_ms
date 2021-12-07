@@ -56,7 +56,11 @@ const productSchema = new Schema({
     features:{
         type: featuresSchema,
         default: null,
-    }
+    },
+    discount: {
+        type: Number,
+        default: 0
+    },
 });
 
 productSchema.post('save', function(doc, next){
