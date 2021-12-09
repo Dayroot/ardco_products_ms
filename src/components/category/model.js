@@ -6,6 +6,10 @@ const categorySchema = new Schema({
     name: {
         type: String,
         required: true,
+    },
+    img: {
+        type: String,
+        default: null,
     }
     
 });
