@@ -41,7 +41,7 @@ async function updateShoppingCart(data, query){
             shoppingCart.products.push(data);
 
         else if ( data.quantity > 0 )
-            shoppingCart.products[index].quantity = data.quantity    
+            shoppingCart.products[index].quantity += data.quantity    
     }
     
     else if(query.type == 'deleteProduct' && index !=null)
