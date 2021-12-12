@@ -12,7 +12,7 @@ function getShoppingCart(filterShoppingCart){
 }
 
 function updateShoppingCart(data, query){
-    if(!query || !data){
+    if(!query){
         return Promise.reject('Invalid data');
     }
     return store.update(data, query)

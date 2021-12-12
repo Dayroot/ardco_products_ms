@@ -28,25 +28,30 @@ async function updateShoppingCart(data, query){
 
     if(!shoppingCart)
         return Promise.reject('Id not valid');
-
-    shoppingCart.products.forEach( (productObj, i) => {
+    if(data){
+        shoppingCart.products.forEach( (productObj, i) => {
             if( productObj.product == data.product){
                 index = i;
             }
         });
-
+    }
     if(query.type == 'updateProduct'){
 
         if( index == null )
             shoppingCart.products.push(data);
 
         else if ( data.quantity > 0 )
-            shoppingCart.products[index].quantity += data.quantity    
+            shoppingCart.products[index].quantity = data.quantity    
     }
     
     else if(query.type == 'deleteProduct' && index !=null)
         shoppingCart.products.splice(index,1);
       
+    else if(query.type == 'resetShoppingCart')
+        shoppingCart.products = [];
+    
+    else if(query.type == 'masiveUpdateCartProducts')
+        shoppingCart.products = data.products;
     else
         return Promise.reject('Invalid operation type');
     
